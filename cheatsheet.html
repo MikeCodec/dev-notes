@@ -35,6 +35,8 @@
     padding: 15px 20px;
     margin-bottom: 25px;
     max-width: auto;
+    position: relative; /* necesario para tooltip */
+    cursor: pointer;
   }
 
   .icons {
@@ -42,12 +44,6 @@
     align-items: center;
     gap: 15px;
     margin-bottom: 10px;
-  }
-
-  .description {
-    color: #f0f0f0;
-    font-size: 12px;
-    margin: 0 0 10px 0;
   }
 
   .terminal {
@@ -66,6 +62,34 @@
     white-space: pre;
     color: inherit;
     font-size: 16px;
+  }
+
+  /* Tooltip moderno */
+  /* `.tooltip-text` are kept in the DOM as sources for JS but hidden from view */
+  .tooltip-text {
+    display: none;
+  }
+
+  /* Floating tooltip that follows the mouse (created/controlled by JS) */
+  #floating-tooltip {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, 0);
+    background: rgba(20,20,20,0.95);
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    font-size: 14px;
+    max-width: 420px;
+    max-height: 40vh;
+    overflow: auto;
+    pointer-events: none; /* don't block mouse events */
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.08s ease, transform 0.08s ease;
+    will-change: transform, opacity;
   }
 
   .tip {
@@ -87,82 +111,93 @@
 
 <!-- Sección 1 -->
 <div class="workflow-section">
-  <h2>1️⃣ Configuración Inicial</h2>
+  <h2>1️⃣ Configuración e Inicialización</h2>
   <div class="icons">
     <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="Usuario" width="30">
     <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email" width="30">
   </div>
-  <p class="description">Define tu nombre y correo para que GitHub muestre correctamente quién hace cada commit.</p>
+  <div class="tooltip-text">
+    UsuarioEmail: Define tu nombre y correo y crea el primer commit para que GitHub registre correctamente tus cambios.
+  </div>
   <div class="terminal">
-    <code>git config --global user.name "Mikecodec"
-git config --global user.email "michaelfloresrojas31@gmail.com"</code>
+    <code>
+git config --global user.name "Mikecodec"
+git config --global user.email "michaelfloresrojas31@gmail.com"
+
+git init  # Crea un repositorio local
+# Opcional: crear archivo .gitignore y agregar archivos a ignorar
+
+git add .                        # Agrega todos los archivos
+git add archivoEspecifico.js     # O agregar un archivo específico
+git commit -m "Primer commit"    # Confirmar cambios
+git remote add origin https://github.com/MikeCodec/repositorioPrueba.git  # Conecta con GitHub
+git push -u origin master        # Subir proyecto por primera vez
+    </code>
   </div>
 </div>
 
 <!-- Sección 2 -->
 <div class="workflow-section">
-  <h2>2️⃣ Inicializar Repositorio</h2>
+  <h2>2️⃣ Trabajar con Ramas</h2>
+  <div class="tooltip-text">
+    Ramas: Crea y trabaja con ramas locales y remotas para organizar tu desarrollo y mantener el historial limpio.
+  </div>
   <div class="terminal">
-    <code>git init  # Crea un repositorio local
-# Opcional: crear archivo .gitignore y agregar archivos a ignorar</code>
+    <code>
+git checkout -b nuevaRama                   # Crear (local) y cambiar a nueva rama
+git add . o git add archivoEspecifico.js    # Agregar cambios
+git commit -m "Descripcion de los cambios"  # Confirmar cambios
+git push --set-upstream origin nuevaRama    # Crear rama en GitHub y subir
+git push -u origin nuevaRama                # Alternativa para subir rama
+git checkout nombre-Rama                     # Cambiar a otra rama
+    </code>
   </div>
 </div>
 
 <!-- Sección 3 -->
 <div class="workflow-section">
-  <h2>3️⃣ Primer Commit y Conexión con GitHub</h2>
+  <h2>3️⃣ Clonar Repositorio GitHub</h2>
+  <div class="tooltip-text">
+    Clonado: Trae un repositorio remoto a tu máquina y trabaja en ramas específicas.
+  </div>
   <div class="terminal">
-    <code>git add .                       # Agrega todos los archivos
-git add archivoEspecifico.js       # O agregar un archivo específico
-git commit -m "Primer commit"      # Confirmar cambios
-git remote add origin https://github.com/MikeCodec/repositorioPrueba.git  # Conecta con GitHub
-git push -u origin master          # Subir proyecto por primera vez</code>
+    <code>
+git clone URL-del-repositorio                   # Clona el repositorio
+git branch -r                                   # Ver todas las ramas locales y remotas
+git checkout -b nombreRama origin/nombreRama   # Trabajar con una rama específica
+    </code>
   </div>
 </div>
 
 <!-- Sección 4 -->
 <div class="workflow-section">
-  <h2>4️⃣ Trabajar con Ramas</h2>
+  <h2>4️⃣ Fusionar Cambios</h2>
+  <div class="tooltip-text">
+    Fusión: Aplica cambios de una rama a otra para mantener tu proyecto actualizado y consolidado.
+  </div>
   <div class="terminal">
-    <code>git checkout -b nuevaRama                   # Crear (local) y cambiar a nueva rama
-git add . o git add archivoEspecifico.js         # Agregar cambios
-git commit -m "Descripcion de los cambios"      # Confirmar cambios
-git push --set-upstream origin nuevaRama        # Crear rama en GitHub y subir
-git push -u origin nuevaRama                     # Alternativa para subir rama
-git checkout nombre-Rama                         # Cambiar a otra rama</code>
+    <code>
+git checkout nombreRamaDestino   # Selecciona rama donde aplicar cambios
+git merge nombreRamaOrigen       # Fusiona cambios
+git push origin nombreRamaDestino # Subir cambios a GitHub
+    </code>
   </div>
 </div>
 
 <!-- Sección 5 -->
 <div class="workflow-section">
-  <h2>5️⃣ Clonar Repositorio GitHub</h2>
-  <div class="terminal">
-    <code>git clone URL-del-repositorio                  # Clona el repositorio
-git branch -r                                      # Ver todas las ramas locales y remotas
-git checkout -b nombreRama origin/nombreRama      # Trabajar con una rama específica</code>
+  <h2>5️⃣ Actualizar Archivos en GitHub</h2>
+  <div class="tooltip-text">
+    Actualización: Sube cambios confirmados al repositorio remoto y verifica el estado de tu proyecto.
   </div>
-</div>
-
-<!-- Sección 6 -->
-<div class="workflow-section">
-  <h2>6️⃣ Fusionar Cambios</h2>
   <div class="terminal">
-    <code>git checkout nombreRamaDestino   # Selecciona rama donde aplicar cambios
-git merge nombreRamaOrigen            # Fusiona cambios
-git push origin nombreRamaDestino     # Subir cambios a GitHub</code>
-  </div>
-</div>
-
-<!-- Sección 7 -->
-<div class="workflow-section">
-  <h2>7️⃣ Actualizar Archivos en GitHub</h2>
-  <div class="terminal">
-    <code>git add . o git add archivoEspecifico.js   # Agregar cambios
-git commit -m "Descripcion de los cambios"       # Confirmar cambios
-git push                                        # Subir actualización a GitHub
-# Opcional: eliminar .git de PC
+    <code>
+git add . o git add archivoEspecifico.js   # Agregar cambios
+git commit -m "Descripcion de los cambios" # Confirmar cambios
+git push                                  # Subir actualización a GitHub
 Remove-Item -Recurse -Force .git
-git status</code>
+git status
+    </code>
   </div>
 </div>
 
@@ -170,6 +205,90 @@ git status</code>
 <div class="tip">
 💡 Tip: Evita usar comandos de borrado de todo el repositorio a menos que sea necesario. Siempre revisa el estado con <code>git status</code> antes de push.
 </div>
+
+<!-- Floating tooltip element (hidden until JS shows it) -->
+<div id="floating-tooltip" aria-hidden="true"></div>
+
+<script>
+// Floating tooltip that follows the mouse 50px below the cursor
+;(function(){
+  const tooltip = document.getElementById('floating-tooltip');
+  let visible = false;
+
+  function show(text){
+    tooltip.textContent = text;
+    tooltip.style.opacity = '1';
+    tooltip.setAttribute('aria-hidden','false');
+    visible = true;
+  }
+  function hide(){
+    tooltip.style.opacity = '0';
+    tooltip.setAttribute('aria-hidden','true');
+    visible = false;
+  }
+
+  // Constrain tooltip within viewport with a 8px margin
+  function clampPosition(x, y, tw, th){
+    const margin = 8;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    let left = x;
+    let top = y;
+    if(left - tw/2 < margin) left = margin + tw/2;
+    if(left + tw/2 > vw - margin) left = vw - margin - tw/2;
+    if(top + th > vh - margin) top = Math.max(margin, vh - margin - th);
+    return {left, top};
+  }
+
+  // Update position to follow mouse: center horizontally at mouse and 50px below
+  function moveTo(clientX, clientY){
+    if(!tooltip) return;
+    // measure
+    tooltip.style.transform = 'translate(-50%, 0)';
+    tooltip.style.left = clientX + 'px';
+    // target y is cursor + 50px
+    const targetY = clientY + 50;
+    // temporarily set top to target to measure size
+    tooltip.style.top = targetY + 'px';
+    const rect = tooltip.getBoundingClientRect();
+    const tw = rect.width;
+    const th = rect.height;
+    const pos = clampPosition(clientX, targetY, tw, th);
+    tooltip.style.left = pos.left + 'px';
+    tooltip.style.top = pos.top + 'px';
+  }
+
+  // Attach listeners to workflow sections
+  const sections = document.querySelectorAll('.workflow-section');
+  sections.forEach(sec => {
+    const source = sec.querySelector('.tooltip-text');
+    const text = source ? source.textContent.trim() : '';
+    sec.addEventListener('mouseenter', (e) => {
+      if(!text) return;
+      show(text);
+    });
+    sec.addEventListener('mousemove', (e) => {
+      if(visible) moveTo(e.clientX, e.clientY);
+    });
+    sec.addEventListener('mouseleave', () => {
+      hide();
+    });
+    // also support focusing inside the section (keyboard)
+    sec.addEventListener('focusin', (e) => {
+      if(!text) return;
+      show(text);
+      // position near center of section if no mouse
+      const rect = sec.getBoundingClientRect();
+      moveTo(rect.left + rect.width/2, rect.top + rect.height/2);
+    });
+    sec.addEventListener('focusout', hide);
+  });
+
+  // Hide on scroll to avoid floating far away
+  window.addEventListener('scroll', () => { if(visible) hide(); }, {passive:true});
+  window.addEventListener('resize', () => { if(visible) hide(); });
+})();
+</script>
 
 </body>
 </html>
