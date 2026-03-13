@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>🖤 Git Workflow – Paso a Paso</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    line-height: 1.6;
+    margin: 20px;
+  }
+
+  h1 {
+    font-size: 42px;
+    color: #ff6600;
+    margin-top: 40px;
+    border-bottom: 4px solid #ff6600;
+    padding-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 32px;
+    color: #00ccff;
+    margin-top: 30px;
+    border-bottom: 2px solid #00ccff;
+    padding-bottom: 6px;
+  }
+
+  .workflow-section {
+    background-color: #2a2a2a;
+    border: 2px solid #444;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    max-width: auto;
+  }
+
+  .icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+
+  .description {
+    color: #f0f0f0;
+    font-size: 12px;
+    margin: 0 0 10px 0;
+  }
+
+  .terminal {
+    background-color: #1b1b1b;
+    border-radius: 6px;
+    padding: 10px;
+    color: #ffcc00;
+    font-family: monospace;
+    line-height: 1.3;
+    overflow-x: auto;
+  }
+
+  .terminal code {
+    display: block;
+    margin: 0;
+    white-space: pre;
+    color: inherit;
+    font-size: 16px;
+  }
+
+  .tip {
+    background-color: #333333;
+    padding: 10px;
+    border-left: 5px solid #00ff00;
+    margin: 10px 0;
+  }
+
+  hr {
+    border: 1px solid #444;
+    margin: 30px 0;
+  }
+</style>
+</head>
+<body>
+
+<h1>🖤 Git Workflow – Paso a Paso</h1>
+
+<!-- Sección 1 -->
+<div class="workflow-section">
+  <h2>1️⃣ Configuración Inicial</h2>
+  <div class="icons">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="Usuario" width="30">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email" width="30">
+  </div>
+  <p class="description">Define tu nombre y correo para que GitHub muestre correctamente quién hace cada commit.</p>
+  <div class="terminal">
+    <code>git config --global user.name "Mikecodec"
+git config --global user.email "michaelfloresrojas31@gmail.com"</code>
+  </div>
+</div>
+
+<!-- Sección 2 -->
+<div class="workflow-section">
+  <h2>2️⃣ Inicializar Repositorio</h2>
+  <div class="terminal">
+    <code>git init  # Crea un repositorio local
+# Opcional: crear archivo .gitignore y agregar archivos a ignorar</code>
+  </div>
+</div>
+
+<!-- Sección 3 -->
+<div class="workflow-section">
+  <h2>3️⃣ Primer Commit y Conexión con GitHub</h2>
+  <div class="terminal">
+    <code>git add .                       # Agrega todos los archivos
+git add archivoEspecifico.js       # O agregar un archivo específico
+git commit -m "Primer commit"      # Confirmar cambios
+git remote add origin https://github.com/MikeCodec/repositorioPrueba.git  # Conecta con GitHub
+git push -u origin master          # Subir proyecto por primera vez</code>
+  </div>
+</div>
+
+<!-- Sección 4 -->
+<div class="workflow-section">
+  <h2>4️⃣ Trabajar con Ramas</h2>
+  <div class="terminal">
+    <code>git checkout -b nuevaRama                   # Crear (local) y cambiar a nueva rama
+git add . o git add archivoEspecifico.js         # Agregar cambios
+git commit -m "Descripcion de los cambios"      # Confirmar cambios
+git push --set-upstream origin nuevaRama        # Crear rama en GitHub y subir
+git push -u origin nuevaRama                     # Alternativa para subir rama
+git checkout nombre-Rama                         # Cambiar a otra rama</code>
+  </div>
+</div>
+
+<!-- Sección 5 -->
+<div class="workflow-section">
+  <h2>5️⃣ Clonar Repositorio GitHub</h2>
+  <div class="terminal">
+    <code>git clone URL-del-repositorio                  # Clona el repositorio
+git branch -r                                      # Ver todas las ramas locales y remotas
+git checkout -b nombreRama origin/nombreRama      # Trabajar con una rama específica</code>
+  </div>
+</div>
+
+<!-- Sección 6 -->
+<div class="workflow-section">
+  <h2>6️⃣ Fusionar Cambios</h2>
+  <div class="terminal">
+    <code>git checkout nombreRamaDestino   # Selecciona rama donde aplicar cambios
+git merge nombreRamaOrigen            # Fusiona cambios
+git push origin nombreRamaDestino     # Subir cambios a GitHub</code>
+  </div>
+</div>
+
+<!-- Sección 7 -->
+<div class="workflow-section">
+  <h2>7️⃣ Actualizar Archivos en GitHub</h2>
+  <div class="terminal">
+    <code>git add . o git add archivoEspecifico.js   # Agregar cambios
+git commit -m "Descripcion de los cambios"       # Confirmar cambios
+git push                                        # Subir actualización a GitHub
+# Opcional: eliminar .git de PC
+Remove-Item -Recurse -Force .git
+git status</code>
+  </div>
+</div>
+
+<hr>
+<div class="tip">
+💡 Tip: Evita usar comandos de borrado de todo el repositorio a menos que sea necesario. Siempre revisa el estado con <code>git status</code> antes de push.
+</div>
+
+</body>
+</html>
